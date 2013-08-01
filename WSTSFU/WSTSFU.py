@@ -19,21 +19,67 @@ Free clinical metadata relating to NGS experiments from Excel documents
 """
 
 
-
 import sys, os, traceback, argparse
 import time
 import __init__ as meta 
 import envoy
+import json
 
-epi = "Licence: "+meta.__licence__ +  " by " +meta.__author__ + " <" +meta.__author_email__ + ">"
+epi = ("Licence: "+meta.__licence__ +  " by " +meta.__author__ 
+            + " <" +meta.__author_email__ + ">")
 
-def to_CSV(file_path):
+def to_CSV_to_JSON(file_path):
     """
-    Convert the file to a csv
+    Convert the xls/xlsx file to a csv then to a json
+    
+    Returns the fullpath to the JSON file
     """
     r = envoy.run('in2csv ' +file_path)
-    print r.std_out
+    csv = r.std_out
+    csv_file = file_path+'.csv'
+    with open(csv_file, 'w') as fout:
+        for line in csv:
+            fout.write(line)
+    json_file = file_path+'.json'
+    r = envoy.run('csvjson ' +csv_file)
+    json = r.std_out
+    with open(json_file, 'w') as fout:
+        for line in json:
+            fout.write(line)
+    return json_file
 
+
+def manipulate_JSON(file_path, strainID_header, exclude):
+    """
+    Manipulate the JSON file
+    """
+    with open(file_path) as fin:
+        data = json.loads(fin.readline())
+    print "Have metadata on %i strains \n" % (len(data))
+    for ele in data:
+        ele['StrainID'] = ele[strainID_header]
+        del ele[strainID_header]
+    if exclude != None:
+        exclude_list = exclude.split()
+        for ele in data:
+            for e in exclude_list:
+                del ele[e]
+        with open(file_path, 'w') as fout:
+            json.dump(data, fout)
+    keys = data[0].keys()
+    print "JSON Schema:"
+    sep1 = '+-----------------------------+-----------------------------+'
+    sep2 = '+=============================+=============================+'
+    header = '| Key                         | Value (type)                |'
+    print sep1+'\n'+header+'\n'+sep2
+    for i, key in enumerate(keys):
+        tmp = len(key)
+        if i != 0:
+            print sep1
+        print "| "+key+(30-tmp-2)*' '+'| string or None'+14*' '+'|'
+    print sep1+'\n'
+    print "Please find your JSON file at: %s" % (file_path) 
+    
 
 def core(args):
     """
@@ -43,7 +89,8 @@ def core(args):
         print "Input file does not exit"
         sys.exit(1)
     else:
-        to_CSV(args.file) 
+        json_path = to_CSV_to_JSON(args.file)
+        manipulate_JSON(json_path, args.strainID_header, args.exclude)
     sys.exit(0)
 
 if __name__ == '__main__':
@@ -51,20 +98,16 @@ if __name__ == '__main__':
         start_time = time.time()
         desc = __doc__.strip()
         parser = argparse.ArgumentParser(description=desc,epilog=epi)
-        # EXAMPLE OF BOOLEAN FLAG: verbose
-        parser.add_argument ('-v', '--verbose', action='store_true', default=False, help='verbose output')
-        parser.add_argument('--version', action='version', version='%(prog)s ' + meta.__version__)
-        # EXAMPLE OF command line variable: 'output'
-        parser.add_argument('-o','--output',action='store',help='output prefix')
-        # EXAMPLE OF POSITIONAL ARGUMENT
-        parser.add_argument ('file', action='store', type=str, 
+        parser.add_argument ('-v', '--verbose', action='store_true', 
+                                default=False, help='verbose output')
+        parser.add_argument('--version', action='version', 
+                                version='%(prog)s ' + meta.__version__)
+        parser.add_argument('-e','--exclude',action='store',
+                                help='Exclude these headers')
+        parser.add_argument('file', action='store', type=str, 
                                 help='Full path to the metadata file')
-        #parser.add_argument ('arg2', action='store', help='2nd positional argument (STRING)')
-        # EXAMPLE OF NESTED PARAMETERS
-         
-        # subparsers = parser.add_subparsers(help='commands')
-        # list_parser = subparsers.add_parser('list', help='List contents')
-        # list_parser.add_argument('dirname', action='store', help='Directory to list')
+        parser.add_argument('strainID_header',  action='store', type=str,
+                                help='The header containing the StrainID')
         parser.set_defaults(func=core)
         args = parser.parse_args()
         args.func(args)        
