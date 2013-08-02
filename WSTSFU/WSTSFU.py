@@ -98,12 +98,19 @@ if __name__ == '__main__':
         start_time = time.time()
         desc = __doc__.strip()
         parser = argparse.ArgumentParser(description=desc,epilog=epi)
-        parser.add_argument ('-v', '--verbose', action='store_true', 
+        parser.add_argument('-v', '--verbose', action='store_true', 
                                 default=False, help='verbose output')
         parser.add_argument('--version', action='version', 
                                 version='%(prog)s ' + meta.__version__)
         parser.add_argument('-e','--exclude',action='store',
                                 help='Exclude these headers')
+        parser.add_argument('-b', '--banzai', action='store_true', 
+                                default=False, 
+                                help=('Generate a pre_analystics file for '
+                                    'Banzai'))
+        parser.add_argument('-s', '--seqID_header', action='store', 
+                                type=str, help=('The header containing the '
+                                'sequencingID [required with -b]'))
         parser.add_argument('file', action='store', type=str, 
                                 help='Full path to the metadata file')
         parser.add_argument('strainID_header',  action='store', type=str,
