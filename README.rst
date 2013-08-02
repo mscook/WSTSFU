@@ -15,9 +15,9 @@ WSTSFU is a simple wrapper around csvkit.
 
 
 Requirements
-------:------
+------------
 
-Python 2.7 (no support for 3 at this stage)
+**Python 2.7** (no support for 3 at this stage)
     
 Python modules:
     * csvkit
@@ -58,7 +58,9 @@ Example/Tutorial/Quickstart
 Most often the metadata such as isolate data, isolate location, typing 
 information etc comes to the Bioinformatician in the form of a Microsoft 
 Excel document. WSTSFU takes a Microsoft Excel document and converts it to 
-JSON. WSTSFU also:
+JSON. 
+
+WSTSFU also:
     * renames a given column label to StrainID
     * provides information on the schema that could be loaded into a MongoDB 
       database
@@ -116,11 +118,10 @@ Here vial_label is remapped to StrainID::
 
 **xlsx to JSON excluding some columns**
 
-Here vial_label is remapped to StrainID and we exclude columns labelled Farm
-AHD and Ehcount::
+Here we exclude columns labelled Farm, AHD, and Ehcount::
 
-python WSTSFU.py ~/Documents/isolates_for_sequencing_032013.xlsx vial_label -e 'Farm AHD Ehcount'
-Have metadata on 99 strains 
+    python WSTSFU.py ~/Documents/isolates_for_sequencing_032013.xlsx vial_label -e 'Farm AHD Ehcount'
+    Have metadata on 99 strains 
 
     JSON Schema:
     +-----------------------------+-----------------------------+
