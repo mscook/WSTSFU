@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 
 # Copyright 2013 Beatson Group Licensed under the
-#     Educational Community License, Version 2.0 (the "License"); you may
-#     not use this file except in compliance with the License. You may
-#     obtain a copy of the License at
+# Educational Community License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may
+# obtain a copy of the License at
 #
-#      http://www.osedu.org/licenses/ECL-2.0
+# http://www.osedu.org/licenses/ECL-2.0
 #
-#     Unless required by applicable law or agreed to in writing,
-#     software distributed under the License is distributed on an "AS IS"
-#     BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
-#     or implied. See the License for the specific language governing
-#     permissions and limitations under the License.
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an "AS IS"
+# BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied. See the License for the specific language governing
+# permissions and limitations under the License.
 
 
 """
@@ -21,17 +21,17 @@ Free clinical metadata relating to NGS experiments from Excel documents
 
 import sys, os, traceback, argparse
 import time
-import __init__ as meta 
+import __init__ as meta
 import envoy
 import json
 
-epi = ("Licence: "+meta.__licence__ +  " by " +meta.__author__ 
+epi = ("Licence: "+meta.__licence__ +  " by " +meta.__author__
             + " <" +meta.__author_email__ + ">")
 
 def to_CSV_to_JSON(file_path):
     """
     Convert the xls/xlsx file to a csv then to a json
-    
+
     Returns the fullpath to the JSON file
     """
     r = envoy.run('in2csv ' +file_path)
@@ -78,8 +78,8 @@ def manipulate_JSON(file_path, strainID_header, exclude):
             print sep1
         print "| "+key+(30-tmp-2)*' '+'| string or None'+14*' '+'|'
     print sep1+'\n'
-    print "Please find your JSON file at: %s" % (file_path) 
-    
+    print "Please find your JSON file at: %s" % (file_path)
+
 
 def core(args):
     """
@@ -98,26 +98,26 @@ if __name__ == '__main__':
         start_time = time.time()
         desc = __doc__.strip()
         parser = argparse.ArgumentParser(description=desc,epilog=epi)
-        parser.add_argument('-v', '--verbose', action='store_true', 
+        parser.add_argument('-v', '--verbose', action='store_true',
                                 default=False, help='verbose output')
-        parser.add_argument('--version', action='version', 
+        parser.add_argument('--version', action='version',
                                 version='%(prog)s ' + meta.__version__)
         parser.add_argument('-e','--exclude',action='store',
                                 help='Exclude these headers')
-        parser.add_argument('-b', '--banzai', action='store_true', 
-                                default=False, 
+        parser.add_argument('-b', '--banzai', action='store_true',
+                                default=False,
                                 help=('Generate a pre_analystics file for '
                                     'Banzai'))
-        parser.add_argument('-s', '--seqID_header', action='store', 
+        parser.add_argument('-s', '--seqID_header', action='store',
                                 type=str, help=('The header containing the '
                                 'sequencingID [required with -b]'))
-        parser.add_argument('file', action='store', type=str, 
+        parser.add_argument('file', action='store', type=str,
                                 help='Full path to the metadata file')
         parser.add_argument('strainID_header',  action='store', type=str,
                                 help='The header containing the StrainID')
         parser.set_defaults(func=core)
         args = parser.parse_args()
-        args.func(args)        
+        args.func(args)
         if args.verbose: print "Executing @ " + time.asctime()
         main()
         if args.verbose: print "Ended @ " + time.asctime()
@@ -132,4 +132,4 @@ if __name__ == '__main__':
         print 'ERROR, UNEXPECTED EXCEPTION'
         print str(e)
         traceback.print_exc()
-        os._exit(1)       
+        os._exit(1)
