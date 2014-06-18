@@ -12,15 +12,17 @@ Work in progress:
     * `WSTSFU documentation`_
 
 
+About
+-----
+
 WorkSheet To Something Fucking Useful =  WSTSFU. Free clinical metadata
 relating to NGS experiments from Excel documents.
-
 
 Too often the clinical metadata relating to NGS experiments comes in the form  
 of a Microsoft Excel spreadsheet. This increasingly frustrates the 
 Bioinformatician.
 
-*This tool may be a useful joke*
+*This tool may be a useful joke*.
 
 WSTSFU is a simple wrapper around csvkit.
 
@@ -33,6 +35,8 @@ Requirements
 Python modules:
     * csvkit
     * envoy
+
+(If you want to build docs and test add sphinx and nose to those above)
 
 
 Usage
