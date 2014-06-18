@@ -29,26 +29,24 @@ Usage
 
 Something like this::
 
-    Usage: WSTSFU.py [-h] [-v] [--version] [-e EXCLUDE] [-b] [-s SEQID_HEADER]
-                     file strainID_header
 
-    Free clinical metadata relating to NGS experiments from Excel documents
-
-    positional arguments:
-      file                  Full path to the metadata file
-      strainID_header       The header containing the StrainID
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -v, --verbose         verbose output
-      --version             show program's version number and exit
-      -e EXCLUDE, --exclude EXCLUDE
-                            Exclude these headers
-      -b, --banzai          Generate a pre_analystics file for Banzai
-      -s SEQID_HEADER, --seqID_header SEQID_HEADER
-                            The header containing the sequencingID [required with
-                            -b]
-
+    $ python WSTSFU.py -h
+    
+    Usage: WSTSFU.py [-h] [--version] [-e EXCLUDE] [-b] [-s SEQID_HEADER] file strainID_header
+                     
+         Free clinical metadata relating to NGS experiments from Excel documents
+         
+        positional arguments:
+            file                  Full path to the metadata file
+            strainID_header       The header containing the StrainID
+             
+        optional arguments:
+            -h, --help            show this help message and exit
+            --version             show program's version number and exit
+            -e EXCLUDE, --exclude EXCLUDE Exclude these headers
+            -b, --banzai          Generate a pre_analystics file for Banzai
+            -s SEQID_HEADER, --seqID_header SEQID_HEADER The header containing the sequencingID [required with -b]
+                                                                                               
     Licence: ECL 2.0 by Mitchell Stanton-Cook <m.stantoncook@gmail.com>
 
 
@@ -62,8 +60,7 @@ JSON.
 
 WSTSFU also:
     * renames a given column label to StrainID
-    * provides information on the schema that could be loaded into a MongoDB 
-      database
+    * provides information on the schema that could be loaded into a database
 
 Optionally, WSTSFU can:
     * exclude certain columns from the resultant JSON,
