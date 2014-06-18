@@ -1,6 +1,17 @@
 WSTSFU
 ======
 
+.. image:: https://travis-ci.org/mscook/WSTSFU.png?branch=master
+        :target: https://travis-ci.org/mscook/WSTSFU
+|
+.. image:: https://landscape.io/github/mscook/WSTSFU/master/landscape.png
+        :target: https://landscape.io/github/mscook/WSTSFU/master
+        :alt: Code Health
+
+Work in progress:
+    * `WSTSFU documentation`_
+
+
 WorkSheet To Something Fucking Useful =  WSTSFU. Free clinical metadata
 relating to NGS experiments from Excel documents.
 
@@ -148,3 +159,8 @@ Here we exclude columns labelled Farm, AHD, and Ehcount::
     +-----------------------------+-----------------------------+
 
     Please find your JSON file at: /home/mscook/Documents/isolates_for_sequencing_032013.xlsx.json
+
+
+
+.. _WSTSFU documentation: http://wstsfu.rtfd.org
+
