@@ -17,7 +17,7 @@
 Free clinical metadata relating to NGS experiments from Excel documents
 """
 
-__title__            = 'WSTSFU'
+__name__            = 'WSTSFU'
 __version__         = '0.1.1'
 __description__     = 'WorkSheet To Something Fucking Useful'
 __author__          = 'Mitchell Stanton-Cook'
