@@ -17,16 +17,25 @@
 Free clinical metadata relating to NGS experiments from Excel documents
 """
 
+__name__            = 'WSTSFU'
+__version__         = '0.1.1'
+__description__     = 'WorkSheet To Something Fucking Useful'
+__author__          = 'Mitchell Stanton-Cook'
+__author_email__    = 'm.stantoncook@gmail.com'
+__url__             = 'http://github.com/mscook/WSTSFU'
+__licence__         = 'ECL 2.0'
+
+
 import sys
 import os
 import traceback
 import argparse
-import __init__ as meta
 import envoy
 import json
 
-epi = ("Licence: " + meta.__licence__ + " by "+meta.__author__
-       + " <" + meta.__author_email__ + ">")
+
+epi = ("Licence: " + __licence__ + " by "+__author__
+       + " <" + __author_email__ + ">")
 
 
 def to_CSV_to_JSON(file_path):
@@ -100,7 +109,7 @@ if __name__ == '__main__':
         desc = __doc__.strip()
         parser = argparse.ArgumentParser(description=desc, epilog=epi)
         parser.add_argument('--version', action='version',
-                            version='%(prog)s ' + meta.__version__)
+                            version='%(prog)s ' + __version__)
         parser.add_argument('-e', '--exclude', action='store',
                             help='Exclude these headers')
         parser.add_argument('-b', '--banzai', action='store_true',
