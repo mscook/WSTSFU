@@ -34,3 +34,21 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+
+# generic files to ignore
+sandbox/*
+*.lock
+*.DS_Store
+*.swp
+# python specific
+*.pyc
+*.pyo
+
+# sphinx doc specific
+_build
+_static
+_templates
+
+### package building stuff
+WSTSFU.egg-info/
